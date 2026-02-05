@@ -4,5 +4,6 @@ keyword.kwlist
 
 
 print("Texto")
-print = 1
+printnum = 1
 print("Texto")
+print(printnum)
