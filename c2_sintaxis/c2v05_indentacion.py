@@ -15,6 +15,8 @@ class Persona:
         return es_mayor_edad
 
 
-paco = Persona(nombre="Paco", edad=27)
+paco = Persona(nombre="Paco", edad=17)
 paco_es_mayor = paco.es_mayor_edad()
 print(paco_es_mayor)
+paco.cumplir_anios()
+print(paco.es_mayor_edad())
