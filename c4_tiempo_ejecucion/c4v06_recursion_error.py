@@ -5,3 +5,6 @@ def calcular_factorial_recursivo(numero):
 
 
 print(calcular_factorial_recursivo(5))
+
+import sys
+print(sys.getrecursionlimit())
