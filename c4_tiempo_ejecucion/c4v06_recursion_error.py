@@ -8,3 +8,8 @@ print(calcular_factorial_recursivo(5))
 
 import sys
 print(sys.getrecursionlimit())
+
+try:
+    print(calcular_factorial_recursivo(1000))
+except RecursionError as e:
+    print("El número es muy grande, no se puede calcular el factorial")
