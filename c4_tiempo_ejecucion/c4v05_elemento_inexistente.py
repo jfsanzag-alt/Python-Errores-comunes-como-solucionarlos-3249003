@@ -6,4 +6,7 @@ dict_elementos = {
 	"nombre": "Ana",
 	"edad": 25
 }
-# print(dict_elementos["apellido"])
+print(dict_elementos["apellido"] if "apellido" in dict_elementos.keys() else None)
+for elem in dict_elementos:
+  print(elem if elem in dict_elementos.keys() else None)
+

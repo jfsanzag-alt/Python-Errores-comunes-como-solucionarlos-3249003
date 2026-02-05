@@ -6,3 +6,5 @@ def desactivar_sensor(sensor):
 
 sensor = True
 print(desactivar_sensor(sensor))
+sensor = False
+print(desactivar_sensor(sensor))
