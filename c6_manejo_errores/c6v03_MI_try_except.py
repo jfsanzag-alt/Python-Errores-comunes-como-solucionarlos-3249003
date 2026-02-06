@@ -39,6 +39,8 @@ def procesar_repuesta(endpoint, nombre_buscado):
         print(f"🔥 Error inesperado: {type(e).__name__} - {e}")
     else:
         print("Ejecución sin errores")
+    finally:
+        print("Fin del procesamiento del endpoint")
 
 # --- PRUEBAS ---
 
