@@ -37,6 +37,8 @@ def procesar_repuesta(endpoint, nombre_buscado):
         print(f"⚠️ Error de Lógica: {e}")
     except Exception as e:
         print(f"🔥 Error inesperado: {type(e).__name__} - {e}")
+    else:
+        print("Ejecución sin errores")
 
 # --- PRUEBAS ---
 
