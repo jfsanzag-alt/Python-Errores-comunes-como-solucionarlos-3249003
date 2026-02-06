@@ -1,13 +1,18 @@
 import requests
-#import urllib3
 
-# Esto silencia la advertencia de "Insecure Request" al usar verify=False
-#urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+# Pruebas de distintas excepciones
+# URL Correcta y resultado O
+# No se pudo establecer conexión con internet exceptions.ConnectionError
+# Error de timeout. exceptions.Timeout
+# URL QUE NO EXISTE (Error 404/500) exceptions.HTTPError
+# URL Correcta pero no se puede decodificar contenido JSON. JSONErrorCode
+# URL Correcta pero Error de lógica. ValueError, IndexError
+
 
 def procesar_repuesta(endpoint, nombre_buscado):
     try:
         # Hacemos la petición
-        request = requests.get(endpoint)
+        request = requests.get(endpoint, timeout=0.1)
         
         print(f"--- Intentando conectar con: {endpoint} ---")
         
@@ -31,6 +36,12 @@ def procesar_repuesta(endpoint, nombre_buscado):
             # Forzamos un error de lógica para el ejercicio
             raise ValueError(f"El Pokémon '{nombre_buscado}' no existe en esta página.")
 
+    except requests.JSONDecodeError:
+        print("No se pudo decodificar el contenido de la respuesta")
+    except requests.exceptions.ConnectionError:
+        print("🌐 Error de red: No se pudo establecer la conexión con el servidor.")
+    except requests.exceptions.Timeout:
+        print("⏳ El servidor tardó demasiado en responder.")
     except requests.exceptions.HTTPError as err:
         print(f"❌ Error de URL: No se encontró el recurso (404). Detalle: {err}")
     except ValueError as e:
@@ -50,6 +61,12 @@ url_ok = "https://pokeapi.co/api/v2/pokemon/"
 # URL QUE NO EXISTE (Error 404)
 url_error = "https://pokeapi.co/api/v2/esta-ruta-esta-mal/"
 
+# Esta URL devuelve texto plano, NO un JSON
+url_provocar_error = "https://pokeapi.co/robots.txt"
+
+# Simular error de timeout, usando 0.01 y este enlace
+url_provocar_timeout = "https://www.renfe.com/es/es/grupo-renfe/transporte-sostenible/tren-bici"
+
 print("\n--- CASO 1: URL CORRECTA ---")
 procesar_repuesta(url_ok, "bulbasaur")
 
@@ -58,3 +75,9 @@ procesar_repuesta(url_ok, "agumon") # Agumon no es un Pokémon ;)
 
 print("\n--- CASO 3: URL INCORRECTA (Error 404) ---")
 procesar_repuesta(url_error, "bulbasaur")
+
+print("\n--- CASO: Forzando JSONDecodeError ---")
+procesar_repuesta(url_provocar_error, "bulbasaur")
+
+print("\n--- CASO: Forzando timeout ---")
+procesar_repuesta(url_provocar_timeout, "bulbasaur")
